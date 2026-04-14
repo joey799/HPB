@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { imagePath } from '../utils/imagePath'
 
 
-const LILY_IMG = 'public/photos/lilys1.png'
+const LILY_IMG = imagePath('photos/lilys1.png')
 
 const borderLilies = [
   // --- HOEKEN (Dubbel voor dikte) ---

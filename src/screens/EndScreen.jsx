@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 import { imagePath } from '../utils/imagePath'
 
 
-const RED_LILY = 'public/photos/redlilys.png'
-const LILY_IMG = 'public/photos/lilys1.png'
-const PHOTOS = Array.from({ length: 8 }, (_, i) => `public/photos/foto${i + 1}.jpg`)
+const RED_LILY = imagePath('photos/redlilys.png')
+const LILY_IMG = imagePath('photos/lilys1.png')
+const PHOTOS = Array.from({ length: 8 }, (_, i) => imagePath(`photos/foto${i + 1}.jpg`))
 
 const borderLilies = [
   { t: '-4rem', l: '-4rem', r: 'auto', b: 'auto', rot: '-20deg', sc: 1.0 },

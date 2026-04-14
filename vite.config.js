@@ -5,8 +5,8 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [
     react(),
-    tailwindcss(),
-  ],
+    tailwindcss(),], 
+  base: '/HPB/',
   // 🔍 VERVANG 'memory-game-elija' door de EXACTE naam van je GitHub repo
-  base: '/HPB/', 
+ 
 })

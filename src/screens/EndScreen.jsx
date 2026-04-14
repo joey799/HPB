@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 
-const RED_LILY = '/photos/redlilys.png'
-const LILY_IMG = '/photos/lilys1.png'
-const PHOTOS = Array.from({ length: 8 }, (_, i) => `/photos/foto${i + 1}.jpg`)
+const RED_LILY = 'public/photos/redlilys.png'
+const LILY_IMG = 'public/photos/lilys1.png'
+const PHOTOS = Array.from({ length: 8 }, (_, i) => `public/photos/foto${i + 1}.jpg`)
 
 const borderLilies = [
   { t: '-4rem', l: '-4rem', r: 'auto', b: 'auto', rot: '-20deg', sc: 1.0 },
@@ -81,9 +81,9 @@ export default function EndScreen({ result, onReplay }) {
 
       {/* Achtergrond */}
       <div className="absolute inset-0 flex w-full h-full z-0">
-        <img src="/photos/elija.jpg" className="w-1/3 h-full object-cover" alt="" />
-        <img src="/photos/elija.jpg" className="w-1/3 h-full object-cover" alt="" />
-        <img src="/photos/elija.jpg" className="w-1/3 h-full object-cover" alt="" />
+        <img src="public/photos/elija.jpg" className="w-1/3 h-full object-cover" alt="" />
+        <img src="public/photos/elija.jpg" className="w-1/3 h-full object-cover" alt="" />
+        <img src="public/photos/elija.jpg" className="w-1/3 h-full object-cover" alt="" />
       </div>
 
       {/* Overlay */}
@@ -91,7 +91,7 @@ export default function EndScreen({ result, onReplay }) {
 
       {/* 🕵️ 02.PNG - DUIDELIJK ZICHTBAAR */}
       <img
-        src="/photos/02.png"
+        src="public/photos/02.png"
         alt=""
         className="absolute pointer-events-none opacity-90 hover:opacity-100 transition-opacity duration-300 drop-shadow-2xl"
         style={{

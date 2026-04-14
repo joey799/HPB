@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-const LILY_IMG = '/photos/lilys1.png'
+const LILY_IMG = 'public/photos/lilys1.png'
 
 const borderLilies = [
   // --- HOEKEN (Dubbel voor dikte) ---
@@ -82,9 +82,9 @@ export default function RulesScreen({ onStart }) {
       
       {/* 🖼️ ACHTERGROND: 3 foto's naast elkaar */}
       <div className="absolute inset-0 flex w-full h-full z-0">
-        <img src="/photos/elija.jpg" className="w-1/3 h-full object-cover" alt="" />
-        <img src="/photos/elija.jpg" className="w-1/3 h-full object-cover" alt="" />
-        <img src="/photos/elija.jpg" className="w-1/3 h-full object-cover" alt="" />
+        <img src="public/photos/elija.jpg" className="w-1/3 h-full object-cover" alt="" />
+        <img src="public/photos/elija.jpg" className="w-1/3 h-full object-cover" alt="" />
+        <img src="public/photos/elija.jpg" className="w-1/3 h-full object-cover" alt="" />
       </div>
 
       {/* 🌫️ OVERLAY */}

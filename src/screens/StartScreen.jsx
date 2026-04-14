@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
-    const LILY_IMG = '/photos/lilys1.png'
-    const RED_LILY = '/photos/redlilys.png'
+    const LILY_IMG = 'public/photos/lilys1.png'
+    const RED_LILY = 'public/photos/redlilys.png'
 
     const borderLilies = [
     { t: '-4rem', l: '-4rem', r: 'auto', b: 'auto', rot: '-20deg', sc: 1.0 },
@@ -104,9 +104,9 @@ import { useEffect, useState } from 'react'
 
         {/* Achtergrond */}
         <div className="absolute inset-0 flex w-full h-full z-0">
-            <img src="/photos/elija.jpg" className="w-1/3 h-full object-cover" alt="" />
-            <img src="/photos/elija.jpg" className="w-1/3 h-full object-cover" alt="" />
-            <img src="/photos/elija.jpg" className="w-1/3 h-full object-cover" alt="" />
+            <img src="public/photos/elija.jpg" className="w-1/3 h-full object-cover" alt="" />
+            <img src="public/photos/elija.jpg" className="w-1/3 h-full object-cover" alt="" />
+            <img src="public/photos/elija.jpg" className="w-1/3 h-full object-cover" alt="" />
         </div>
 
         {/* Overlay */}
@@ -183,7 +183,7 @@ import { useEffect, useState } from 'react'
             >
             Speel het Memory Shot Spel
             <img
-                src="/photos/smirnoff.jpg"
+                src="public/photos/smirnoff.jpg"
                 alt="Smirnoff"
                 className={`w-8 h-8 md:w-10 md:h-10 object-contain drop-shadow-md ${shake ? 'smirnoff-shake' : ''}`}
             />

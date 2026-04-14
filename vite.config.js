@@ -8,5 +8,5 @@ export default defineConfig({
     tailwindcss(),
   ],
   // 🔍 VERVANG 'memory-game-elija' door de EXACTE naam van je GitHub repo
-  base: '/HBP/', 
+  base: '/HPB/', 
 })

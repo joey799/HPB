@@ -1,11 +1,53 @@
 import { useEffect, useState } from 'react'
 import { imagePath } from '../utils/imagePath'
 
-const RED_LILY = imagePath('photos/redlilys.png')
-const LILY_IMG = imagePath('photos/lilys1.png')
-const PHOTOS = Array.from({ length: 8 }, (_, i) => imagePath(`photos/foto${i + 1}.jpg`))
 
-// ... (borderLilies hetzelfde)
+const RED_LILY = 'public/photos/redlilys.png'
+const LILY_IMG = 'public/photos/lilys1.png'
+const PHOTOS = Array.from({ length: 8 }, (_, i) => `public/photos/foto${i + 1}.jpg`)
+
+const borderLilies = [
+  { t: '-4rem', l: '-4rem', r: 'auto', b: 'auto', rot: '-20deg', sc: 1.0 },
+  { t: '0rem', l: '-2rem', r: 'auto', b: 'auto', rot: '10deg', sc: 0.8 },
+  { t: '-4rem', r: '-4rem', l: 'auto', b: 'auto', rot: '70deg', sc: 1.0 },
+  { t: '0rem', r: '-2rem', l: 'auto', b: 'auto', rot: '40deg', sc: 0.8 },
+  { b: '-4rem', l: '-4rem', t: 'auto', r: 'auto', rot: '-110deg', sc: 1.0 },
+  { b: '0rem', l: '-2rem', t: 'auto', r: 'auto', rot: '-140deg', sc: 0.8 },
+  { b: '-4rem', r: '-4rem', t: 'auto', l: 'auto', rot: '160deg', sc: 1.0 },
+  { b: '0rem', r: '-2rem', t: 'auto', l: 'auto', rot: '130deg', sc: 0.8 },
+  { t: '-4rem', l: '8%', rot: '15deg', sc: 0.9 },
+  { t: '-4rem', l: '18%', rot: '-5deg', sc: 0.85 },
+  { t: '-4rem', l: '28%', rot: '10deg', sc: 0.9 },
+  { t: '-4rem', l: '38%', rot: '-15deg', sc: 0.85 },
+  { t: '-4rem', l: '50%', rot: '5deg', sc: 0.95 },
+  { t: '-4rem', l: '62%', rot: '-10deg', sc: 0.85 },
+  { t: '-4rem', l: '72%', rot: '15deg', sc: 0.9 },
+  { t: '-4rem', l: '82%', rot: '-5deg', sc: 0.85 },
+  { t: '-4rem', l: '92%', rot: '20deg', sc: 0.9 },
+  { b: '-4rem', l: '8%', rot: '-160deg', sc: 0.9 },
+  { b: '-4rem', l: '18%', rot: '170deg', sc: 0.85 },
+  { b: '-4rem', l: '28%', rot: '-175deg', sc: 0.9 },
+  { b: '-4rem', l: '38%', rot: '160deg', sc: 0.85 },
+  { b: '-4rem', l: '50%', rot: '-180deg', sc: 0.95 },
+  { b: '-4rem', l: '62%', rot: '175deg', sc: 0.85 },
+  { b: '-4rem', l: '72%', rot: '-165deg', sc: 0.9 },
+  { b: '-4rem', l: '82%', rot: '170deg', sc: 0.85 },
+  { b: '-4rem', l: '92%', rot: '-170deg', sc: 0.9 },
+  { t: '8%', l: '-4rem', rot: '-90deg', sc: 0.9 },
+  { t: '20%', l: '-4rem', rot: '-85deg', sc: 0.85 },
+  { t: '32%', l: '-4rem', rot: '-95deg', sc: 0.9 },
+  { t: '50%', l: '-5rem', rot: '-90deg', sc: 0.95 },
+  { t: '68%', l: '-4rem', rot: '-88deg', sc: 0.9 },
+  { t: '80%', l: '-4rem', rot: '-85deg', sc: 0.85 },
+  { t: '92%', l: '-4rem', rot: '-92deg', sc: 0.9 },
+  { t: '8%', r: '-4rem', rot: '90deg', sc: 0.9 },
+  { t: '20%', r: '-4rem', rot: '85deg', sc: 0.85 },
+  { t: '32%', r: '-4rem', rot: '95deg', sc: 0.9 },
+  { t: '50%', r: '-5rem', rot: '90deg', sc: 0.95 },
+  { t: '68%', r: '-4rem', rot: '88deg', sc: 0.9 },
+  { t: '80%', r: '-4rem', rot: '85deg', sc: 0.85 },
+  { t: '92%', r: '-4rem', rot: '92deg', sc: 0.9 },
+]
 
 export default function EndScreen({ result, onReplay }) {
   const { score, shots } = result
@@ -38,6 +80,7 @@ export default function EndScreen({ result, onReplay }) {
 
   return (
     <div className="relative w-full min-h-screen overflow-hidden flex items-center justify-center">
+
       {/* Achtergrond */}
       <div className="absolute inset-0 flex w-full h-full z-0">
         <img src={imagePath('photos/elija.jpg')} className="w-1/3 h-full object-cover" alt="" />
@@ -48,9 +91,9 @@ export default function EndScreen({ result, onReplay }) {
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/30 z-0" />
 
-      {/* 02.png Logo */}
+      {/* 🕵️ 02.PNG - DUIDELIJK ZICHTBAAR */}
       <img
-        src={imagePath('photos/02.png')}
+        src={imagePath('public/photos/02.png')}
         alt=""
         className="absolute pointer-events-none opacity-90 hover:opacity-100 transition-opacity duration-300 drop-shadow-2xl"
         style={{
@@ -78,7 +121,7 @@ export default function EndScreen({ result, onReplay }) {
         />
       ))}
 
-      {/* Content */}
+      {/* Scrollbare content */}
       <div
         className="relative z-30 w-full max-w-3xl mx-auto px-4 py-16 flex flex-col items-center gap-8"
         style={{
@@ -89,6 +132,8 @@ export default function EndScreen({ result, onReplay }) {
       >
         {/* Score kaart */}
         <div className="relative bg-white/20 backdrop-blur-md border border-white/30 p-8 rounded-3xl shadow-2xl w-full text-center">
+
+          {/* Rode lily linksonder */}
           <img
             src={RED_LILY}
             alt=""
@@ -101,6 +146,8 @@ export default function EndScreen({ result, onReplay }) {
               transition: 'opacity 1s ease 0.5s',
             }}
           />
+
+          {/* Rode lily rechtsonder */}
           <img
             src={RED_LILY}
             alt=""
@@ -118,10 +165,12 @@ export default function EndScreen({ result, onReplay }) {
             Gefeliciteerd Elija! 
           </h2>
           
+          {/* ✅ PUNTEN IN NORMAAL FONT */}
           <p className="text-2xl font-bold text-white/95 mt-1 tracking-wide">
             Eindstand: {score} punten ⭐
           </p>
           
+          {/* ✅ SHOT COMMENT IN NORMAAL FONT (gewijzigd van font-cursive naar font-bold) */}
           <p className="text-lg font-bold text-white/70 mt-1">
             {shots} shots genomen — {shotComment}
           </p>
@@ -139,6 +188,7 @@ export default function EndScreen({ result, onReplay }) {
         {/* Verjaardagsbericht */}
         <div className="bg-white/20 backdrop-blur-md border border-white/30 rounded-3xl p-8 text-left text-white/90 shadow-2xl w-full">
           <p className="font-cursive text-2xl mb-4 text-white">Lieve Elija,</p>
+          
           <p className="font-cursive text-base md:text-lg mb-3 leading-relaxed">
             Vandaag, 22 april, word jij officieel 18 jaar — en wat een dag om te vieren! 
             Welkom in de wereld van de volwassenheid, al weten we allemaal dat jij allang
@@ -159,6 +209,7 @@ export default function EndScreen({ result, onReplay }) {
             Geniet van elke seconde van vandaag, want je verdient het volledig. Op jou,
             Elija — de mooiste, liefste, gekste en meest bijzondere 18-jarige die we kennen.
           </p>
+          
           <p className="font-cursive text-xl text-white mt-4">
             Van harte gefeliciteerd met je 18e verjaardag! ik hou van je! ❤️
           </p>

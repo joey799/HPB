@@ -2,13 +2,146 @@ import { useState, useEffect, useCallback } from 'react'
 import Card from '../components/Card'
 import { imagePath } from '../utils/imagePath'
 
-const LILY_IMG = imagePath('photos/lilys1.png')
-const PHOTOS = Array.from({ length: 9 }, (_, i) => imagePath(`photos/foto${i + 1}.jpg`))
 
-// ... (borderLilies en ANIMATIONS hetzelfde)
+const LILY_IMG = 'public/photos/lilys1.png'
+const PHOTOS = Array.from({ length: 9 }, (_, i) => `public/photos/foto${i + 1}.jpg`)
+
+const borderLilies = [
+  { t: '-4rem', l: '-4rem', r: 'auto', b: 'auto', rot: '-20deg', sc: 1.0 },
+  { t: '0rem', l: '-2rem', r: 'auto', b: 'auto', rot: '10deg', sc: 0.8 },
+  { t: '-4rem', r: '-4rem', l: 'auto', b: 'auto', rot: '70deg', sc: 1.0 },
+  { t: '0rem', r: '-2rem', l: 'auto', b: 'auto', rot: '40deg', sc: 0.8 },
+  { b: '-4rem', l: '-4rem', t: 'auto', r: 'auto', rot: '-110deg', sc: 1.0 },
+  { b: '0rem', l: '-2rem', t: 'auto', r: 'auto', rot: '-140deg', sc: 0.8 },
+  { b: '-4rem', r: '-4rem', t: 'auto', l: 'auto', rot: '160deg', sc: 1.0 },
+  { b: '0rem', r: '-2rem', t: 'auto', l: 'auto', rot: '130deg', sc: 0.8 },
+  { t: '-4rem', l: '8%', rot: '15deg', sc: 0.9 },
+  { t: '-4rem', l: '18%', rot: '-5deg', sc: 0.85 },
+  { t: '-4rem', l: '28%', rot: '10deg', sc: 0.9 },
+  { t: '-4rem', l: '38%', rot: '-15deg', sc: 0.85 },
+  { t: '-4rem', l: '50%', rot: '5deg', sc: 0.95 },
+  { t: '-4rem', l: '62%', rot: '-10deg', sc: 0.85 },
+  { t: '-4rem', l: '72%', rot: '15deg', sc: 0.9 },
+  { t: '-4rem', l: '82%', rot: '-5deg', sc: 0.85 },
+  { t: '-4rem', l: '92%', rot: '20deg', sc: 0.9 },
+  { b: '-4rem', l: '8%', rot: '-160deg', sc: 0.9 },
+  { b: '-4rem', l: '18%', rot: '170deg', sc: 0.85 },
+  { b: '-4rem', l: '28%', rot: '-175deg', sc: 0.9 },
+  { b: '-4rem', l: '38%', rot: '160deg', sc: 0.85 },
+  { b: '-4rem', l: '50%', rot: '-180deg', sc: 0.95 },
+  { b: '-4rem', l: '62%', rot: '175deg', sc: 0.85 },
+  { b: '-4rem', l: '72%', rot: '-165deg', sc: 0.9 },
+  { b: '-4rem', l: '82%', rot: '170deg', sc: 0.85 },
+  { b: '-4rem', l: '92%', rot: '-170deg', sc: 0.9 },
+  { t: '8%', l: '-4rem', rot: '-90deg', sc: 0.9 },
+  { t: '20%', l: '-4rem', rot: '-85deg', sc: 0.85 },
+  { t: '32%', l: '-4rem', rot: '-95deg', sc: 0.9 },
+  { t: '50%', l: '-5rem', rot: '-90deg', sc: 0.95 },
+  { t: '68%', l: '-4rem', rot: '-88deg', sc: 0.9 },
+  { t: '80%', l: '-4rem', rot: '-85deg', sc: 0.85 },
+  { t: '92%', l: '-4rem', rot: '-92deg', sc: 0.9 },
+  { t: '8%', r: '-4rem', rot: '90deg', sc: 0.9 },
+  { t: '20%', r: '-4rem', rot: '85deg', sc: 0.85 },
+  { t: '32%', r: '-4rem', rot: '95deg', sc: 0.9 },
+  { t: '50%', r: '-5rem', rot: '90deg', sc: 0.95 },
+  { t: '68%', r: '-4rem', rot: '88deg', sc: 0.9 },
+  { t: '80%', r: '-4rem', rot: '85deg', sc: 0.85 },
+  { t: '92%', r: '-4rem', rot: '92deg', sc: 0.9 },
+]
+
+const ANIMATIONS = `
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-8px) scale(1.1); }
+    40% { transform: translateX(8px) scale(1.1); }
+    60% { transform: translateX(-5px) scale(1.05); }
+    80% { transform: translateX(5px) scale(1.05); }
+  }
+  @keyframes pulse-large {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.5); opacity: 0.9; box-shadow: 0 0 40px rgba(244, 63, 94, 0.9); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .animate-shake { animation: shake 0.4s ease-in-out; }
+  .animate-pulse-large { animation: pulse-large 0.6s ease-out; }
+`
+
+function shuffle(arr) {
+  return [...arr, ...arr].map((src, i) => ({ id: i, src })).sort(() => Math.random() - 0.5)
+}
 
 export default function GameScreen({ onEnd }) {
-  // ... (state en effects hetzelfde)
+  const [cards, setCards] = useState([])
+  const [flipped, setFlipped] = useState([])
+  const [matched, setMatched] = useState([])
+  const [score, setScore] = useState(0)
+  const [shots, setShots] = useState(0)
+  const [lock, setLock] = useState(false)
+  const [toast, setToast] = useState('')
+  const [toastVisible, setToastVisible] = useState(false)
+  const [visible, setVisible] = useState(false)
+  const [animatingStat, setAnimatingStat] = useState(null)
+  const [shotAlert, setShotAlert] = useState(false)
+
+  useEffect(() => {
+    setCards(shuffle(PHOTOS))
+    setTimeout(() => setVisible(true), 100)
+  }, [])
+
+  const triggerStatAnimation = (statName, isShot = false) => {
+    setAnimatingStat(statName)
+    if (isShot) setShotAlert(true)
+    setTimeout(() => {
+      setAnimatingStat(null)
+      setShotAlert(false)
+    }, 600)
+  }
+
+  const showToast = (msg) => {
+    setToast(msg)
+    setToastVisible(true)
+    setTimeout(() => setToastVisible(false), 4000)
+  }
+
+  const handleFlip = useCallback((id) => {
+    if (lock) return
+    if (flipped.includes(id)) return
+    if (matched.includes(id)) return
+
+    const newFlipped = [...flipped, id]
+    setFlipped(newFlipped)
+
+    if (newFlipped.length === 2) {
+      setLock(true)
+      const [a, b] = newFlipped.map((fid) => cards.find((c) => c.id === fid))
+
+      setTimeout(() => {
+        if (a.src === b.src) {
+          const newMatched = [...matched, a.id, b.id]
+          setMatched(newMatched)
+          const newScore = score + 10
+          setScore(newScore)
+          triggerStatAnimation('score')
+          showToast('Match! +10 punten 🎉')
+          if (newMatched.length === cards.length) setTimeout(() => onEnd({ score: newScore, shots }), 700)
+        } else {
+          const newShots = shots + 1
+          setShots(newShots)
+          triggerStatAnimation('shots', true)
+          showToast('Geen match! Shot nemen!')
+        }
+        setFlipped([])
+        setLock(false)
+      }, 800)
+    }
+  }, [lock, flipped, matched, cards, score, shots, onEnd])
+
+  const pairs = matched.length / 2
+  const getStatAnimationClass = (statName) => {
+    if (animatingStat !== statName) return ''
+    if (statName === 'shots' && shotAlert) return 'animate-pulse-large'
+    return 'animate-shake'
+  }
 
   return (
     <div className="relative w-full min-h-screen overflow-hidden flex items-center justify-center">
@@ -31,9 +164,9 @@ export default function GameScreen({ onEnd }) {
         />
       ))}
 
-      {/* MB Logo */}
+      {/* ✅ MB.PNG LOGO - Links onder, offscreen & groter */}
       <img
-        src={imagePath('photos/mb.png')}
+        src={imagePath('public/photos/mb.png')}
         alt="MB Logo"
         className="absolute pointer-events-none opacity-95 hover:opacity-100 transition-opacity duration-300 drop-shadow-2xl"
         style={{
@@ -77,7 +210,7 @@ export default function GameScreen({ onEnd }) {
           ))}
         </div>
 
-        {/* Knop naar eind */}
+        {/* 🏁 KNOP NAAR EINDSCHERM */}
         <button
           onClick={() => onEnd({ score, shots })}
           className="mt-4 bg-white/20 hover:bg-white/30 text-white rounded-full px-10 py-4 text-xl font-bold shadow-xl transition-all border-2 border-white/40 hover:scale-105 active:scale-95"

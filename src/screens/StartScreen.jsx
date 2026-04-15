@@ -1,51 +1,8 @@
 import { useEffect, useState } from 'react'
 import { imagePath } from '../utils/imagePath'
+import FlowerBorder from '../components/FlowerBorder'
 
-const LILY_IMG = imagePath('photos/lilys1.png')
 const RED_LILY = imagePath('photos/redlilys.png')
-
-const borderLilies = [
-  { t: '-4rem', l: '-4rem', r: 'auto', b: 'auto', rot: '-20deg', sc: 1.0 },
-  { t: '0rem', l: '-2rem', r: 'auto', b: 'auto', rot: '10deg', sc: 0.8 },
-  { t: '-4rem', r: '-4rem', l: 'auto', b: 'auto', rot: '70deg', sc: 1.0 },
-  { t: '0rem', r: '-2rem', l: 'auto', b: 'auto', rot: '40deg', sc: 0.8 },
-  { b: '-4rem', l: '-4rem', t: 'auto', r: 'auto', rot: '-110deg', sc: 1.0 },
-  { b: '0rem', l: '-2rem', t: 'auto', r: 'auto', rot: '-140deg', sc: 0.8 },
-  { b: '-4rem', r: '-4rem', t: 'auto', l: 'auto', rot: '160deg', sc: 1.0 },
-  { b: '0rem', r: '-2rem', t: 'auto', l: 'auto', rot: '130deg', sc: 0.8 },
-  { t: '-4rem', l: '8%', rot: '15deg', sc: 0.9 },
-  { t: '-4rem', l: '18%', rot: '-5deg', sc: 0.85 },
-  { t: '-4rem', l: '28%', rot: '10deg', sc: 0.9 },
-  { t: '-4rem', l: '38%', rot: '-15deg', sc: 0.85 },
-  { t: '-4rem', l: '50%', rot: '5deg', sc: 0.95 },
-  { t: '-4rem', l: '62%', rot: '-10deg', sc: 0.85 },
-  { t: '-4rem', l: '72%', rot: '15deg', sc: 0.9 },
-  { t: '-4rem', l: '82%', rot: '-5deg', sc: 0.85 },
-  { t: '-4rem', l: '92%', rot: '20deg', sc: 0.9 },
-  { b: '-4rem', l: '8%', rot: '-160deg', sc: 0.9 },
-  { b: '-4rem', l: '18%', rot: '170deg', sc: 0.85 },
-  { b: '-4rem', l: '28%', rot: '-175deg', sc: 0.9 },
-  { b: '-4rem', l: '38%', rot: '160deg', sc: 0.85 },
-  { b: '-4rem', l: '50%', rot: '-180deg', sc: 0.95 },
-  { b: '-4rem', l: '62%', rot: '175deg', sc: 0.85 },
-  { b: '-4rem', l: '72%', rot: '-165deg', sc: 0.9 },
-  { b: '-4rem', l: '82%', rot: '170deg', sc: 0.85 },
-  { b: '-4rem', l: '92%', rot: '-170deg', sc: 0.9 },
-  { t: '8%', l: '-4rem', rot: '-90deg', sc: 0.9 },
-  { t: '20%', l: '-4rem', rot: '-85deg', sc: 0.85 },
-  { t: '32%', l: '-4rem', rot: '-95deg', sc: 0.9 },
-  { t: '50%', l: '-5rem', rot: '-90deg', sc: 0.95 },
-  { t: '68%', l: '-4rem', rot: '-88deg', sc: 0.9 },
-  { t: '80%', l: '-4rem', rot: '-85deg', sc: 0.85 },
-  { t: '92%', l: '-4rem', rot: '-92deg', sc: 0.9 },
-  { t: '8%', r: '-4rem', rot: '90deg', sc: 0.9 },
-  { t: '20%', r: '-4rem', rot: '85deg', sc: 0.85 },
-  { t: '32%', r: '-4rem', rot: '95deg', sc: 0.9 },
-  { t: '50%', r: '-5rem', rot: '90deg', sc: 0.95 },
-  { t: '68%', r: '-4rem', rot: '88deg', sc: 0.9 },
-  { t: '80%', r: '-4rem', rot: '85deg', sc: 0.85 },
-  { t: '92%', r: '-4rem', rot: '92deg', sc: 0.9 },
-]
 
 export default function StartScreen({ onNext }) {
   const [visible, setVisible] = useState(false)
@@ -110,77 +67,53 @@ export default function StartScreen({ onNext }) {
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/30 z-0" />
 
-      {/* Bloemenrand */}
-      {borderLilies.map((pos, i) => (
-        <img
-          key={i}
-          src={LILY_IMG}
-          alt=""
-          className="absolute w-72 z-20 pointer-events-none"
-          style={{
-            top: pos.t, left: pos.l, bottom: pos.b, right: pos.r,
-            transform: `rotate(${pos.rot}) scale(${pos.sc})`,
-            transition: `opacity 1.5s ease ${i * 0.03}s`,
-            opacity: visible ? 0.65 : 0,
-          }}
-        />
-      ))}
+      {/* ✅ BLOEMENRAND */}
+      <FlowerBorder visible={visible} />
 
       {/* Content */}
       <div
-        className="relative z-30 flex flex-col items-center text-center gap-10 py-12 px-4 w-full"
+        className="relative z-30 flex flex-col items-center text-center gap-8 py-8 px-4 w-full max-w-4xl"
         style={{
           transition: 'opacity 1s ease, transform 1s ease',
           opacity: visible ? 1 : 0,
           transform: visible ? 'translateY(0)' : 'translateY(20px)',
         }}
       >
-        {/* Titel kaart */}
-        <div className="relative bg-white/20 backdrop-blur-md border border-white/30 p-10 rounded-3xl shadow-2xl max-w-4xl w-full mx-4">
-          <img
-            src={RED_LILY}
-            alt=""
-            className="absolute pointer-events-none w-75 z-40"
-            style={{
-              bottom: '-3rem',
-              left: '-8rem',
-              transform: `rotate(-30deg) translateY(${floatOffset}px)`,
-              transition: 'opacity 1s ease 0.5s',
-              opacity: visible ? 1 : 0,
-            }}
-          />
-          <img
-            src={RED_LILY}
-            alt=""
-            className="absolute pointer-events-none w-75 z-40"
-            style={{
-              bottom: '-3rem',
-              right: '-8rem',
-              transform: `rotate(30deg) scaleX(-1) translateY(${floatOffset}px)`,
-              transition: 'opacity 1s ease 0.65s',
-              opacity: visible ? 1 : 0,
-            }}
-          />
+        <div 
+          className="relative bg-white/20 backdrop-blur-md border border-white/30 
+          rounded-3xl shadow-2xl self-center"
+          style={{ padding: "50px", maxWidth: "900px" }}
+        >  
+          <img src={RED_LILY} alt="" className="absolute pointer-events-none w-24 md:w-32 z-40"
+            style={{ bottom: '-2rem', left: '-2rem', transform: `rotate(-30deg) translateY(${floatOffset}px)`, transition: 'opacity 1s ease 0.5s', opacity: visible ? 1 : 0 }} />
+          <img src={RED_LILY} alt="" className="absolute pointer-events-none w-24 md:w-32 z-40"
+            style={{ bottom: '-2rem', right: '-2rem', transform: `rotate(30deg) scaleX(-1) translateY(${floatOffset}px)`, transition: 'opacity 1s ease 0.65s', opacity: visible ? 1 : 0 }} />
 
-          <h1 className="text-6xl md:text-7xl font-cursive text-white mb-4 tracking-tight leading-tight drop-shadow-lg whitespace-nowrap">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-cursive text-white mb-4 tracking-tight leading-tight drop-shadow-lg">
             Happy Birthday Elija!
           </h1>
-          <p className="text-3xl md:text-4xl font-cursive text-white/90 tracking-wide">
+          <p className="text-2xl md:text-3xl font-cursive text-white/90 tracking-wide">
             22 april — 18 jaar!
           </p>
         </div>
 
-        {/* Knop */}
         <button
           onClick={onNext}
-          className={`bg-gradient-to-r from-pink-500 to-rose-600 text-white rounded-full px-14 py-4 text-xl md:text-2xl font-bold shadow-lg transition-colors hover:from-pink-600 hover:to-rose-700 cursor-pointer border border-white/20 flex items-center justify-center gap-3 ${shake ? 'btn-shake' : ''}`}
+          className={`relative bg-gradient-to-r from-pink-500 to-rose-600 text-white 
+          rounded-full px-10 py-4 md:px-14 md:py-5 lg:px-16 lg:py-6
+          text-sm md:text-base lg:text-lg font-bold shadow-lg transition-all duration-200
+          hover:from-pink-600 hover:to-rose-700 hover:scale-[1.02] active:scale-[0.98]
+          cursor-pointer border border-white/20 flex items-center justify-center
+          ${shake ? 'btn-shake' : ''}`}
         >
-          Speel het Memory Shot Spel
-          <img
-            src={imagePath('photos/smirnoff.jpg')}
-            alt="Smirnoff"
-            className={`w-8 h-8 md:w-10 md:h-10 object-contain drop-shadow-md ${shake ? 'smirnoff-shake' : ''}`}
-          />
+          <span className="flex items-center gap-2 md:gap-3">
+            <span className="relative left-[3px] md:left-[4px]">
+              Speel het Memory Shot Spel
+            </span>
+            <img src={imagePath('photos/smirnoff.jpg')} alt="Smirnoff"
+              className={`w-7 h-7 md:w-9 md:h-9 object-contain drop-shadow-md 
+              relative -left-[2px] md:-left-[3px] ${shake ? 'smirnoff-shake' : ''}`} />
+          </span>
         </button>
       </div>
     </div>

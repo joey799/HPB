@@ -7,6 +7,7 @@ const rules = [
   { icon: '🥃', text: 'Geen match? Dan gaan ze terug en probeer je opnieuw.' },
   { icon: '⭐', text: 'Elke match = +10 punten.' },
   { icon: '🌸', text: "Vind alle paren om het spel te winnen." },
+  { icon: '🎁', text: "PS je kan prijzen winnen, maar je zal ze moeten vinden!" }
 ]
 
 export default function RulesScreen({ onStart }) {

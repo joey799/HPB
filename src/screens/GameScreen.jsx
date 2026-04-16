@@ -37,6 +37,9 @@ export default function GameScreen({ onEnd }) {
   const [showToast, setShowToast] = useState(false)
   const [visible, setVisible] = useState(false)
 
+  // ✅ MB STATE
+  const [mbBig, setMbBig] = useState(false)
+
   useEffect(() => {
     setCards(shuffle(PHOTOS))
     setTimeout(() => setVisible(true), 100)
@@ -56,10 +59,13 @@ export default function GameScreen({ onEnd }) {
         if (a.src === b.src) {
           const newMatched = [...matched, a.id, b.id]
           setMatched(newMatched)
+
           const newScore = score + 10
           setScore(newScore)
+
           setToast('Match +10 🎉')
           setShowToast(true)
+
           if (newMatched.length === cards.length) {
             setTimeout(() => onEnd({ score: newScore, shots }), 800)
           }
@@ -68,6 +74,7 @@ export default function GameScreen({ onEnd }) {
           setToast('Geen match! Shot 🍻')
           setShowToast(true)
         }
+
         setFlipped([])
         setLock(false)
         setTimeout(() => setShowToast(false), 1200)
@@ -79,46 +86,79 @@ export default function GameScreen({ onEnd }) {
 
   return (
     <div className="relative w-full min-h-screen flex items-center justify-center overflow-hidden">
+
       <style>{ANIMATIONS}</style>
 
       {/* BACKGROUND */}
       <div className="absolute inset-0 flex z-0">
-        <img src={imagePath('photos/elija.jpg')} className="w-1/3 h-full object-cover" alt="" />
-        <img src={imagePath('photos/elija.jpg')} className="w-1/3 h-full object-cover" alt="" />
-        <img src={imagePath('photos/elija.jpg')} className="w-1/3 h-full object-cover" alt="" />
+        <img src={imagePath('photos/elija.jpg')} className="w-1/3 h-full object-cover" />
+        <img src={imagePath('photos/elija.jpg')} className="w-1/3 h-full object-cover" />
+        <img src={imagePath('photos/elija.jpg')} className="w-1/3 h-full object-cover" />
       </div>
+
       <div className="absolute inset-0 bg-black/30 z-0" />
 
-      {/* ✅ BLOEMENRAND */}
       <FlowerBorder visible={visible} />
 
-      {/* MB LOGO */}
-      <img src={imagePath('photos/mb.png')} className="absolute bottom-[-2rem] left-[-2rem] w-36 z-40" alt="" />
+      {/* ✅ MB IMAGE (CLICK + ANIMATIE) */}
+      <img
+        src={imagePath('photos/mb.png')}
+        onClick={() => setMbBig(prev => !prev)}
+        className={`
+          absolute bottom-[-2rem] left-[-0rem]
+          z-40 cursor-pointer
+          transition-all duration-300 ease-in-out
+          ${mbBig ? 'w-56 md:w-72 scale-110' : 'w-28 md:w-16 scale-90'}
+        `}
+      />
 
       {/* CONTENT */}
-      <div className="relative z-30 flex flex-col items-center gap-10 w-full px-4">
-        <div className="flex gap-6">
+      <div className="relative z-30 flex flex-col items-center gap-6 w-full px-4">
+
+        {/* STATS */}
+        <div className="flex gap-11 flex-wrap justify-center">
+
           {[
             { label: 'Punten', value: score },
             { label: 'Shots', value: shots },
             { label: 'Paren', value: `${pairs}/9` },
           ].map((s, i) => (
-            <div key={i} className="min-w-[160px] px-10 py-6 rounded-2xl bg-white/20 backdrop-blur-2xl border border-white/30 shadow-xl text-center text-white flex flex-col items-center justify-center gap-1 hover:scale-[1.03] transition-all duration-200">
-              <div className="text-sm opacity-70 tracking-wide">{s.label}</div>
-              <div className="text-4xl font-bold leading-none">{s.value}</div>
+            <div
+              key={i}
+              className="min-w-[200px] h-[70px] px-8 rounded-2xl bg-white/20 backdrop-blur-2xl border border-white/30 shadow-xl text-center text-white flex flex-col items-center justify-center"
+            >
+              <div className="text-sm opacity-70 tracking-wide mb-1">
+                {s.label}
+              </div>
+
+              <div className="text-3xl font-bold leading-none">
+                {s.value}
+              </div>
             </div>
           ))}
+
         </div>
 
+        {/* GRID */}
         <div className="grid grid-cols-6 gap-8 max-w-6xl">
           {cards.map(card => (
-            <Card key={card.id} photoSrc={card.src} isFlipped={flipped.includes(card.id)} isMatched={matched.includes(card.id)} onClick={() => handleFlip(card.id)} />
+            <Card
+              key={card.id}
+              photoSrc={card.src}
+              isFlipped={flipped.includes(card.id)}
+              isMatched={matched.includes(card.id)}
+              onClick={() => handleFlip(card.id)}
+            />
           ))}
         </div>
 
-        <button onClick={() => onEnd({ score, shots })} className="px-10 py-4 rounded-full bg-white/20 border border-white/30 text-white backdrop-blur-xl hover:bg-white/30 transition-all">
+        <button
+          onClick={() => onEnd({ score, shots })}
+          className="px-10 py-4 rounded-full bg-white/20 border border-white/30 text-white backdrop-blur-xl hover:bg-white/30 transition-all"
+        >
           Stoppen 🏆
         </button>
+
       </div>
 
       {showToast && (
@@ -126,6 +166,7 @@ export default function GameScreen({ onEnd }) {
           {toast}
         </div>
       )}
+
     </div>
   )
 }

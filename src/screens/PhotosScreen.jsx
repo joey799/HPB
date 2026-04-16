@@ -75,35 +75,35 @@ export default function PhotosScreen({ onBack }) {
         `}
       />
 
-      {/* LIGHTBOX */}
+      {/* LIGHTBOX (FIXED) */}
       {selected !== null && (
-        <div className="fixed inset-0 z-50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+
+          {/* BACKDROP */}
           <div
             className="absolute inset-0 bg-black/80 backdrop-blur-sm"
             onClick={() => setSelected(null)}
           />
 
-          <div className="relative h-full w-full flex items-center justify-center p-6 z-10">
+          {/* IMAGE */}
+          <div
+            className="relative z-10 flex items-center justify-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src={photos[selected].src}
+              alt=""
+              className="max-w-[90vw] max-h-[90vh] w-auto h-auto object-contain rounded-xl shadow-2xl"
+            />
 
-            <div
-              className="max-w-lg w-full bg-white/10 backdrop-blur-md border border-white/30 rounded-3xl overflow-hidden shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
+            <button
+              onClick={() => setSelected(null)}
+              className="absolute top-2 right-2 text-white/80 hover:text-white text-3xl font-bold"
             >
-              <img
-                src={photos[selected].src}
-                className="w-full object-cover max-h-96"
-                alt=""
-              />
-
-              <button
-                onClick={() => setSelected(null)}
-                className="absolute top-3 right-4 text-white/70 hover:text-white text-2xl font-bold"
-              >
-                ✕
-              </button>
-            </div>
-
+              ✕
+            </button>
           </div>
+
         </div>
       )}
 

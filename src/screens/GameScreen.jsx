@@ -163,7 +163,7 @@ export default function GameScreen({ onEnd }) {
         </div>
 
         {/* GRID */}
-        <div className="grid grid-cols-6 gap-8 max-w-10xl w-24 sm:w-32 md:w-38 lg:w-300">
+        <div className="grid grid-cols-6 gap-8 max-w-10xl w-24 sm:w-32 md:w-38 lg:w-250">
           {cards.map(card => (
             <Card
               key={card.id}

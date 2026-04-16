@@ -181,16 +181,18 @@ export default function PhotosScreen({ onBack }) {
 
           <button
             onClick={newSet}
-            className="min-w-[260px] bg-white/20 text-white px-6 py-4 text-lg font-bold rounded-full shadow-lg border border-white/30 hover:bg-white/30 hover:scale-105 transition-all"
+                        className="min-w-[260px] bg-gradient-to-r from-pink-500 to-rose-600 text-white px-10 py-4 text-lg font-bold rounded-full shadow-lg hover:from-pink-600 hover:to-rose-700 hover:scale-105 transition-all border border-white/20"
+
           >
-            🎲 Nieuwe foto set
+            Nieuwe foto set
           </button>
 
           <button
             onClick={onBack}
-            className="min-w-[260px] bg-gradient-to-r from-pink-500 to-rose-600 text-white px-10 py-4 text-lg font-bold rounded-full shadow-lg hover:from-pink-600 hover:to-rose-700 hover:scale-105 transition-all border border-white/20"
+                        className="min-w-[260px] bg-white/20 text-white px-6 py-4 text-lg font-bold rounded-full shadow-lg border border-white/30 hover:bg-white/30 hover:scale-105 transition-all"
+
           >
-            ← Terug naar het bericht
+            Terug naar het bericht
           </button>
 
         </div>

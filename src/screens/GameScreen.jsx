@@ -3,7 +3,24 @@ import Card from '../components/Card'
 import { imagePath } from '../utils/imagePath'
 import FlowerBorder from '../components/FlowerBorder'
 
-const PHOTOS = Array.from({ length: 9 }, (_, i) => imagePath(`photos/foto${i + 1}.jpg`))
+const ALL_PHOTOS = Array.from({ length: 28 }, (_, i) =>
+  imagePath(`photos/foto${i + 1}.jpg`)
+)
+
+// ✅ echte shuffle (niet kapot .sort)
+function shuffleArray(arr) {
+  const a = [...arr]
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[a[i], a[j]] = [a[j], a[i]]
+  }
+  return a
+}
+
+// ✅ kies 9 random foto’s (9 pairs = 18 cards)
+function pickRandomPhotos() {
+  return shuffleArray(ALL_PHOTOS).slice(0, 9)
+}
 
 const ANIMATIONS = `
 @keyframes shake {
@@ -22,12 +39,22 @@ const ANIMATIONS = `
 .animate-pop { animation: pop 0.3s ease-out; }
 `
 
-function shuffle(arr) {
-  return [...arr, ...arr].map((src, i) => ({ id: i, src })).sort(() => Math.random() - 0.5)
-}
-
 export default function GameScreen({ onEnd }) {
-  const [cards, setCards] = useState([])
+
+  // ✅ stabiele random set (blijft hetzelfde tijdens game)
+  const [cards] = useState(() => {
+    const selected = pickRandomPhotos()
+
+    const doubled = [...selected, ...selected]
+
+    return shuffleArray(
+      doubled.map((src, i) => ({
+        id: i,
+        src,
+      }))
+    )
+  })
+
   const [flipped, setFlipped] = useState([])
   const [matched, setMatched] = useState([])
   const [score, setScore] = useState(0)
@@ -36,12 +63,9 @@ export default function GameScreen({ onEnd }) {
   const [toast, setToast] = useState('')
   const [showToast, setShowToast] = useState(false)
   const [visible, setVisible] = useState(false)
-
-  // ✅ MB STATE
   const [mbBig, setMbBig] = useState(false)
 
   useEffect(() => {
-    setCards(shuffle(PHOTOS))
     setTimeout(() => setVisible(true), 100)
   }, [])
 
@@ -53,7 +77,10 @@ export default function GameScreen({ onEnd }) {
 
     if (newFlipped.length === 2) {
       setLock(true)
-      const [a, b] = newFlipped.map(fid => cards.find(c => c.id === fid))
+
+      const [a, b] = newFlipped.map(fid =>
+        cards.find(c => c.id === fid)
+      )
 
       setTimeout(() => {
         if (a.src === b.src) {
@@ -69,6 +96,7 @@ export default function GameScreen({ onEnd }) {
           if (newMatched.length === cards.length) {
             setTimeout(() => onEnd({ score: newScore, shots }), 800)
           }
+
         } else {
           setShots(shots + 1)
           setToast('Geen match! Shot 🍻')
@@ -100,12 +128,12 @@ export default function GameScreen({ onEnd }) {
 
       <FlowerBorder visible={visible} />
 
-      {/* ✅ MB IMAGE (CLICK + ANIMATIE) */}
+      {/* MB IMAGE */}
       <img
         src={imagePath('photos/mb.png')}
         onClick={() => setMbBig(prev => !prev)}
         className={`
-          absolute bottom-[-2rem] left-[-0rem]
+          absolute bottom-[-2rem] left-0
           z-40 cursor-pointer
           transition-all duration-300 ease-in-out
           ${mbBig ? 'w-56 md:w-72 scale-110' : 'w-28 md:w-16 scale-90'}
@@ -127,20 +155,15 @@ export default function GameScreen({ onEnd }) {
               key={i}
               className="min-w-[200px] h-[70px] px-8 rounded-2xl bg-white/20 backdrop-blur-2xl border border-white/30 shadow-xl text-center text-white flex flex-col items-center justify-center"
             >
-              <div className="text-sm opacity-70 tracking-wide mb-1">
-                {s.label}
-              </div>
-
-              <div className="text-3xl font-bold leading-none">
-                {s.value}
-              </div>
+              <div className="text-sm opacity-70 mb-1">{s.label}</div>
+              <div className="text-3xl font-bold">{s.value}</div>
             </div>
           ))}
 
         </div>
 
         {/* GRID */}
-        <div className="grid grid-cols-6 gap-8 max-w-6xl">
+        <div className="grid grid-cols-6 gap-8 max-w-10xl w-24 sm:w-32 md:w-38 lg:w-300">
           {cards.map(card => (
             <Card
               key={card.id}
@@ -161,6 +184,7 @@ export default function GameScreen({ onEnd }) {
 
       </div>
 
+      {/* TOAST */}
       {showToast && (
         <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-pink-500 to-rose-600 text-white px-12 py-6 rounded-full text-2xl font-bold shadow-lg border border-white/20 backdrop-blur-xl animate-pop z-[999]">
           {toast}

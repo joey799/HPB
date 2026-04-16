@@ -6,17 +6,23 @@ const RED_LILY = imagePath('photos/redlilys.png')
 const CAMERA = imagePath('photos/cam.png')
 const TAKIS = imagePath('photos/takis.png')
 
-const PHOTOS = Array.from({ length: 18 }, (_, i) => ({
+const ALL_PHOTOS = Array.from({ length: 28 }, (_, i) => ({
   src: imagePath(`photos/foto${i + 1}.jpg`),
-  year: 2007 + i,
-  age: i + 1,
 }))
+
+function getRandomPhotos() {
+  return [...ALL_PHOTOS]
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 18)
+}
 
 export default function PhotosScreen({ onBack }) {
   const [visible, setVisible] = useState(false)
   const [selected, setSelected] = useState(null)
   const [floatOffset, setFloatOffset] = useState(0)
   const [takisClicked, setTakisClicked] = useState(false)
+
+  const [photos, setPhotos] = useState(getRandomPhotos())
 
   useEffect(() => {
     setTimeout(() => setVisible(true), 100)
@@ -35,6 +41,11 @@ export default function PhotosScreen({ onBack }) {
     return () => cancelAnimationFrame(frame)
   }, [])
 
+  const newSet = () => {
+    setPhotos(getRandomPhotos())
+    setSelected(null)
+  }
+
   return (
     <div className="relative w-full min-h-screen overflow-hidden flex items-center justify-center">
 
@@ -49,7 +60,7 @@ export default function PhotosScreen({ onBack }) {
 
       <FlowerBorder visible={visible} />
 
-      {/* 👉 TAKIS EASTER EGG (RECHTSBOVEN) */}
+      {/* TAKIS */}
       <img
         src={TAKIS}
         alt=""
@@ -67,32 +78,22 @@ export default function PhotosScreen({ onBack }) {
       {/* LIGHTBOX */}
       {selected !== null && (
         <div className="fixed inset-0 z-50">
-
-          {/* BACKDROP */}
           <div
             className="absolute inset-0 bg-black/80 backdrop-blur-sm"
             onClick={() => setSelected(null)}
           />
 
-          {/* CONTENT */}
-          <div className="relative h-full w-full flex flex-col items-center justify-center p-6 z-10">
+          <div className="relative h-full w-full flex items-center justify-center p-6 z-10">
 
             <div
-              className="relative max-w-lg w-full bg-white/10 backdrop-blur-md border border-white/30 rounded-3xl overflow-hidden shadow-2xl"
+              className="max-w-lg w-full bg-white/10 backdrop-blur-md border border-white/30 rounded-3xl overflow-hidden shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               <img
-                src={PHOTOS[selected].src}
-                alt={`Foto ${selected + 1}`}
+                src={photos[selected].src}
                 className="w-full object-cover max-h-96"
+                alt=""
               />
-
-              <div className="p-5 text-center">
-                <p className="font-cursive text-3xl text-white mb-1">
-                  {selected === 0 ? '🍼 Jaar 1' : `🎂 ${PHOTOS[selected].age} jaar`}
-                </p>
-                <p className="text-white/60 text-sm">{PHOTOS[selected].year}</p>
-              </div>
 
               <button
                 onClick={() => setSelected(null)}
@@ -100,36 +101,6 @@ export default function PhotosScreen({ onBack }) {
               >
                 ✕
               </button>
-            </div>
-
-            <div className="h-12 md:h-16 lg:h-24" />
-
-            <div className="w-full max-w-lg flex justify-between gap-5">
-
-              <button
-                onClick={(e) => {
-                  e.stopPropagation()
-                  setSelected((s) => Math.max(0, s - 1))
-                }}
-                disabled={selected === 0}
-                className="flex-1 bg-gradient-to-r from-pink-500 to-rose-600 text-white py-3 px-4 text-sm font-bold rounded-full shadow-lg
-                hover:from-pink-600 hover:to-rose-700 disabled:from-pink-300 disabled:to-rose-300 transition-all"
-              >
-                ← Vorige
-              </button>
-
-              <button
-                onClick={(e) => {
-                  e.stopPropagation()
-                  setSelected((s) => Math.min(PHOTOS.length - 1, s + 1))
-                }}
-                disabled={selected === PHOTOS.length - 1}
-                className="flex-1 bg-gradient-to-r from-pink-500 to-rose-600 text-white py-3 px-4 text-sm font-bold rounded-full shadow-lg
-                hover:from-pink-600 hover:to-rose-700 disabled:from-pink-300 disabled:to-rose-300 transition-all"
-              >
-                Volgende →
-              </button>
-
             </div>
 
           </div>
@@ -155,25 +126,21 @@ export default function PhotosScreen({ onBack }) {
           <img
             src={RED_LILY}
             alt=""
-            className="absolute pointer-events-none w-24 md:w-32 z-10"
+            className="absolute w-24 md:w-32"
             style={{
               bottom: '-2.5rem',
               left: '-1.5rem',
-              transform: `rotate(-25deg) translateY(${floatOffset}px)`,
-              opacity: visible ? 1 : 0,
-              transition: 'opacity 1s ease 0.5s'
+              transform: `rotate(-25deg) translateY(${floatOffset}px)`
             }}
           />
           <img
             src={RED_LILY}
             alt=""
-            className="absolute pointer-events-none w-24 md:w-32 z-10"
+            className="absolute w-24 md:w-32"
             style={{
               bottom: '-2.5rem',
               right: '-1.5rem',
-              transform: `rotate(25deg) scaleX(-1) translateY(${floatOffset}px)`,
-              opacity: visible ? 1 : 0,
-              transition: 'opacity 1s ease 0.65s'
+              transform: `rotate(25deg) scaleX(-1) translateY(${floatOffset}px)`
             }}
           />
 
@@ -189,43 +156,46 @@ export default function PhotosScreen({ onBack }) {
 
         {/* GRID */}
         <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 w-full">
-          {PHOTOS.map((photo, i) => (
+          {photos.map((photo, i) => (
             <div
               key={i}
               onClick={() => setSelected(i)}
-              className="group relative aspect-square rounded-2xl overflow-hidden border border-white/30 shadow-md cursor-pointer hover:scale-105 hover:border-pink-400/60 transition-all duration-300"
+              className="group relative aspect-square rounded-2xl overflow-hidden border border-white/30 shadow-md cursor-pointer hover:scale-105 transition-all duration-300"
               style={{
                 transitionDelay: `${i * 0.03}s`,
                 opacity: visible ? 1 : 0,
                 transform: visible ? 'scale(1)' : 'scale(0.9)',
-                transition: `opacity 0.6s ease ${i * 0.04}s, transform 0.6s ease ${i * 0.04}s, scale 0.2s`,
               }}
             >
               <img
                 src={photo.src}
-                alt={`Foto ${i + 1}`}
                 className="w-full h-full object-cover group-hover:brightness-110 transition-all duration-300"
+                alt=""
               />
-
-              <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/70 to-transparent p-2 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                <p className="font-cursive text-white text-center text-sm leading-none">
-                  {i === 0 ? '🍼 Jaar 1' : `🎂 ${photo.age} jaar`}
-                </p>
-                <p className="text-white/60 text-center text-xs">{photo.year}</p>
-              </div>
             </div>
           ))}
         </div>
 
-        {/* BACK BUTTON */}
-        <button
-          onClick={onBack}
-          className="min-w-[260px] bg-gradient-to-r from-pink-500 to-rose-600 text-white rounded-full px-10 py-4 text-lg font-bold shadow-lg hover:from-pink-600 hover:to-rose-700 hover:scale-105 transition-all cursor-pointer border border-white/20 flex items-center justify-center"
-        >
-          ← Terug naar het bericht
-        </button>
+        {/* BUTTONS */}
+        <div className="flex flex-col sm:flex-row gap-4 w-full justify-center items-center">
+
+          <button
+            onClick={newSet}
+            className="min-w-[260px] bg-white/20 text-white px-6 py-4 text-lg font-bold rounded-full shadow-lg border border-white/30 hover:bg-white/30 hover:scale-105 transition-all"
+          >
+            🎲 Nieuwe foto set
+          </button>
+
+          <button
+            onClick={onBack}
+            className="min-w-[260px] bg-gradient-to-r from-pink-500 to-rose-600 text-white px-10 py-4 text-lg font-bold rounded-full shadow-lg hover:from-pink-600 hover:to-rose-700 hover:scale-105 transition-all border border-white/20"
+          >
+            ← Terug naar het bericht
+          </button>
+
+        </div>
 
       </div>
     </div>
   )
-}
+}   

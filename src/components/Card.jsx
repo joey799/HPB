@@ -3,7 +3,7 @@ export default function Card({ photoSrc, isFlipped, isMatched, onClick }) {
 
   return (
     <div
-className="aspect-square w-12 sm:w-14 md:w-16 lg:w-20 xl:w-24"      onClick={onClick}
+className="aspect-square w-16 sm:w-24 md:w-32 lg:w-40 xl:w-38"      onClick={onClick}
       style={{ perspective: "1000px" }}
     >
       <div

@@ -4,7 +4,7 @@ import FlowerBorder from '../components/FlowerBorder'
 
 const rules = [
   { icon: '🃏', text: 'Draai twee kaarten om. Zijn ze gelijk? Dan win je punten!' },
-  { icon: '🥃', text: 'Geen match? Dan gaan ze terug en probeer je opnieuw.' },
+  { icon: '🥃', text: 'Geen match? Dan neem je een shot en probeer je opnieuw.' },
   { icon: '⭐', text: 'Elke match = +10 punten.' },
   { icon: '🌸', text: "Vind alle paren om het spel te winnen." },
   { icon: '🎁', text: "PS je kan prijzen winnen, maar je zal ze moeten vinden!" }

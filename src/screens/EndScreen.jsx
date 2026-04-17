@@ -33,9 +33,9 @@ export default function EndScreen({ result, onReplay, onPhotos }) {
   }, [])
 
   const shotComment =
-    shots === 0 ? 'Ongelooflijk! Nul shots! 🏆'
-    : shots < 4 ? 'Niet slecht gedaan! 😄'
-    : 'Nou, lekker genoten zeker? 😂'
+    shots === 0 ? 'Ongelooflijk Nul shots Maar je zal opnieuw moeten gaan 🏆'
+    : shots < 4 ? ''
+    : ''
 
   return (
     <div className="relative w-full min-h-screen overflow-hidden flex items-center justify-center">

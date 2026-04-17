@@ -175,12 +175,7 @@ export default function GameScreen({ onEnd }) {
           ))}
         </div>
 
-        <button
-          onClick={() => onEnd({ score, shots })}
-          className="px-10 py-4 rounded-full bg-white/20 border border-white/30 text-white backdrop-blur-xl hover:bg-white/30 transition-all"
-        >
-          Stoppen 🏆
-        </button>
+
 
       </div>
 

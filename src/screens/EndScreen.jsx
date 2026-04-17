@@ -115,32 +115,55 @@ export default function EndScreen({ result, onReplay, onPhotos }) {
         </div>
 
         {/* BRIEF */}
-        <div
-          className="bg-white/20 backdrop-blur-md border border-white/30 rounded-3xl shadow-2xl w-full text-left"
-          style={{ padding: "30px 50px", maxWidth: "900px" }}
-        >
-          <p className="font-cursive text-3xl text-white mb-6">Lieve Elija,</p>
+        <p className="font-cursive text-3xl text-white mb-6">Lieve Elija,</p>
 
-          <p className="font-cursive text-lg text-white/90 mb-5">
-            Vandaag, 22 april, word jij officieel 18 jaar...
-          </p>
+<p className="font-cursive text-lg text-white/90 mb-5">
+Vandaag, 22 april, word jij officieel 18 jaar. Een nieuwe fase, nieuwe vrijheid, nieuwe herinneringen die nog gemaakt gaan worden. Maar voordat alles wat nog komt begint, wil ik even stilstaan bij jou en alles wat je nu al bent.
+</p>
 
-          <p className="font-cursive text-lg text-white/90 mb-5">
-            18 jaar geleden kwam er iemand de wereld in...
-          </p>
+<p className="font-cursive text-lg text-white/90 mb-5">
+18 jaar geleden kwam er iemand de wereld in die ik later zou leren kennen als één van de meest bijzondere mensen in mijn leven. En eerlijk, ik ben nog steeds blij dat onze paden elkaar hebben gekruist, want sinds dat moment is er echt veel veranderd voor mij.
+</p>
 
-          <p className="font-cursive text-lg text-white/90 mb-5">
-            Van stapavonden tot late nachtgesprekken...
-          </p>
+<p className="font-cursive text-lg text-white/90 mb-5">
+We zijn nu ongeveer 10 maanden samen, sinds die tijd rond juli, en in die tijd heb je mijn leven op een manier veranderd die ik niet eens goed kan uitleggen. Het zijn niet alleen de grote momenten, maar juist die kleine dingen die het speciaal maken.
+</p>
 
-          <p className="font-cursive text-lg text-white/90">
-            Geniet van elke seconde van vandaag...
-          </p>
+<p className="font-cursive text-lg text-white/90 mb-5">
+Van samen zitten in het Museumpark, gewoon praten en lachen om niks, tot die momenten waarop we elkaar echt begrijpen zonder woorden. Dat zijn de momenten die ik het meest waardeer, omdat ze gewoon echt zijn.
+</p>
 
-          <p className="font-cursive text-2xl text-white mt-6 pt-6 border-t border-white/20">
-            Van harte gefeliciteerd! ❤️
-          </p>
-        </div>
+<p className="font-cursive text-lg text-white/90 mb-5">
+Van samen op dates tot late nachtgesprekken, van random gesprekken tot serieuze momenten — met jou is alles gewoon beter. Jij maakt gewone dagen speciaal zonder dat je het zelf doorhebt, en dat is iets wat ik echt bijzonder vind aan jou.
+</p>
+
+<p className="font-cursive text-lg text-white/90 mb-5">
+Soms denk ik niet eens na over waarom het zo goed voelt met jou, het is er gewoon. En dat maakt het misschien nog wel mooier. Jij bent gewoon jezelf, en dat is mooi aan jou.
+</p>
+
+<p className="font-cursive text-lg text-white/90 mb-5">
+Ik waardeer je meer dan ik vaak zeg. Hoe je bent, hoe je denkt, hoe je mij laat voelen. Je betekent echt veel voor me, en ik hoop dat je dat vandaag extra voelt, maar eigenlijk elke dag een beetje.
+</p>
+
+<p className="font-cursive text-lg text-white/90 mb-5">
+Nu je 18 bent geworden, begint er een nieuw hoofdstuk. Nieuwe kansen, nieuwe dingen om te ontdekken. Maar wat er ook verandert, ik hoop dat we samen nog veel meer herinneringen gaan maken — nog meer dagen in het park, nog meer gesprekken, nog meer momenten die alleen van ons zijn.
+</p>
+
+<p className="font-cursive text-lg text-white/90 mb-5">
+Ik kijk er in ieder geval naar uit wat er nog allemaal komt met jou. Want als de afgelopen 10 maanden al zo waren, dan kan het alleen maar mooier worden.
+</p>
+
+<p className="font-cursive text-lg text-white/90">
+Geniet van elke seconde van vandaag, want je verdient het echt. Dit is jouw dag.
+</p>
+
+<p className="font-cursive text-2xl text-white mt-6 pt-6 border-t border-white/20">
+Van harte gefeliciteerd! 
+
+I love you, Elija. ❤️
+
+
+</p>
 
         {/* BUTTONS */}
         <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">

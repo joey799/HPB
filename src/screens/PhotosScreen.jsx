@@ -6,7 +6,7 @@ const RED_LILY = imagePath('photos/redlilys.png')
 const CAMERA = imagePath('photos/cam.png')
 const TAKIS = imagePath('photos/takis.png')
 
-const ALL_PHOTOS = Array.from({ length: 28 }, (_, i) => ({
+const ALL_PHOTOS = Array.from({ length: 39 }, (_, i) => ({
   src: imagePath(`photos/foto${i + 1}.jpg`),
 }))
 
@@ -71,7 +71,7 @@ export default function PhotosScreen({ onBack }) {
           cursor-pointer
           drop-shadow-2xl
           transition-all duration-300 ease-in-out
-          ${takisClicked ? 'scale-300 rotate-12' : 'scale-18 rotate-0'}
+          ${takisClicked ? 'scale-300 rotate-12' : 'scale-29 rotate-0'}
         `}
       />
 

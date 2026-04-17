@@ -3,7 +3,7 @@ import Card from '../components/Card'
 import { imagePath } from '../utils/imagePath'
 import FlowerBorder from '../components/FlowerBorder'
 
-const ALL_PHOTOS = Array.from({ length: 28 }, (_, i) =>
+const ALL_PHOTOS = Array.from({ length: 39 }, (_, i) =>
   imagePath(`photos/foto${i + 1}.jpg`)
 )
 
@@ -105,7 +105,7 @@ export default function GameScreen({ onEnd }) {
 
         setFlipped([])
         setLock(false)
-        setTimeout(() => setShowToast(false), 1200)
+        setTimeout(() => setShowToast(false), 5200)
       }, 700)
     }
   }, [flipped, matched, cards, score, shots, lock, onEnd])

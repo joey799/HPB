@@ -3,7 +3,7 @@ import Card from '../components/Card'
 import { imagePath } from '../utils/imagePath'
 import FlowerBorder from '../components/FlowerBorder'
 
-const ALL_PHOTOS = Array.from({ length: 39 }, (_, i) =>
+const ALL_PHOTOS = Array.from({ length: 50 }, (_, i) =>
   imagePath(`photos/foto${i + 1}.jpg`)
 )
 

@@ -6,7 +6,7 @@ const RED_LILY = imagePath('photos/redlilys.png')
 const CAMERA = imagePath('photos/cam.png')
 const TAKIS = imagePath('photos/takis.png')
 
-const ALL_PHOTOS = Array.from({ length: 39 }, (_, i) => ({
+const ALL_PHOTOS = Array.from({ length: 50 }, (_, i) => ({
   src: imagePath(`photos/foto${i + 1}.jpg`),
 }))
 
